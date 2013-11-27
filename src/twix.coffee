@@ -131,6 +131,11 @@ makeTwix = (moment) ->
     # -- WORK WITH MULTIPLE RANGES --
     overlaps: (other) -> (@_trueEnd().isAfter(other._trueStart()) && @_trueStart().isBefore(other._trueEnd()))
 
+    # to do : write tests for these
+    bordersBefore: (other) -> (@_trueEnd().isSame(other._trueStart()) && @_trueStart().isBefore(other._trueEnd()))
+    bordersAfter: (other) -> (@_trueStart().isSame(other._trueEnd()) && @_trueEnd().isAfter(other._trueStart()))
+    borders: (other) -> @bordersBefore(other) || @bordersAfter(other)
+
     engulfs: (other) -> @_trueStart() <= other._trueStart() && @_trueEnd() >= other._trueEnd()
 
     union: (other) ->
